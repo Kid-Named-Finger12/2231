@@ -1,6 +1,7 @@
 import java.util.Iterator;
 
 import components.binarytree.BinaryTree;
+import components.binarytree.BinaryTree1;
 import components.set.Set;
 import components.set.SetSecondary;
 
@@ -53,10 +54,27 @@ public class Set3a<T extends Comparable<T>> extends SetSecondary<T> {
         assert t != null : "Violation of: t is not null";
         assert x != null : "Violation of: x is not null";
 
-        // TODO - fill in body
+        boolean containsX = false;
 
-        // This line added just to make the component compilable.
-        return false;
+        if (t.size() > 0) {
+
+            BinaryTree<T> left = new BinaryTree1<>();
+            BinaryTree<T> right = new BinaryTree1<>();
+
+            T y = t.disassemble(left, right);
+
+            if (y.compareTo(x) == 0) {
+                containsX = true;
+            } else {
+                containsX = isInTree(left, x);
+                containsX = isInTree(right, x);
+            }
+
+            t.assemble(y, left, right);
+
+        }
+
+        return containsX;
     }
 
     /**
@@ -141,9 +159,7 @@ public class Set3a<T extends Comparable<T>> extends SetSecondary<T> {
      * Creator of initial representation.
      */
     private void createNewRep() {
-
-        // TODO - fill in body
-
+        this.tree = new BinaryTree1<>();
     }
 
     /*
@@ -154,9 +170,7 @@ public class Set3a<T extends Comparable<T>> extends SetSecondary<T> {
      * No-argument constructor.
      */
     public Set3a() {
-
-        // TODO - fill in body
-
+        this.createNewRep();
     }
 
     /*
