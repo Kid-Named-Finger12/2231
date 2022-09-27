@@ -25,7 +25,6 @@ import components.queue.Queue1L;
  *
  *
  *
- *
  * Layered implementations of secondary method {@code sort} for
  * {@code Queue<String>}.
  *
