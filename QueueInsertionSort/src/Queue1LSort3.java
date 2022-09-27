@@ -71,7 +71,7 @@ public final class Queue1LSort3<T> extends Queue1L<T> {
         assert order != null : "Violation of: order is not null";
 
         // TODO - fill in body
-
+ 
     }
 
 }
