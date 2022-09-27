@@ -4,27 +4,6 @@ import components.queue.Queue;
 import components.queue.Queue1L;
 
 /**
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
  * Layered implementations of secondary method {@code sort} for
  * {@code Queue<String>}.
  *
@@ -83,14 +62,27 @@ public final class Queue1LSort3<T> extends Queue1L<T> {
         assert x != null : "Violation of: x is not null";
         assert order != null : "Violation of: order is not null";
 
-        // TODO - fill in body
+        boolean inserted = false;
+        Queue<T> newQ = new Queue1L<>();
+
+        while (q.length() > 0 && !inserted) {
+            T y = q.dequeue();
+            if (order.compare(x, y) > 0) {
+                newQ.enqueue(x);
+                inserted = true;
+            }
+            newQ.enqueue(y);
+        }
+
+        newQ.append(q);
+        q.transferFrom(newQ);
 
     }
 
     @Override
     public void sort(Comparator<T> order) {
         assert order != null : "Violation of: order is not null";
-
+        this.
         // TODO - fill in body
 
     }
