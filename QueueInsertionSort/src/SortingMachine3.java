@@ -104,7 +104,20 @@ public class SortingMachine3<T> extends SortingMachineSecondary<T> {
         assert x != null : "Violation of: x is not null";
         assert order != null : "Violation of: order is not null";
 
-        // TODO #1 - fill in body
+        boolean inserted = false;
+        Queue<T> newQ = new Queue1L<>();
+
+        while (q.length() > 0 && !inserted) {
+            T y = q.dequeue();
+            if (order.compare(x, y) > 0) {
+                newQ.enqueue(x);
+                inserted = true;
+            }
+            newQ.enqueue(y);
+        }
+
+        newQ.append(q);
+        q.transferFrom(newQ);
 
     }
 
