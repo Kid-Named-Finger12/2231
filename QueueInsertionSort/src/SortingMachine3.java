@@ -8,6 +8,12 @@ import components.sortingmachine.SortingMachine;
 import components.sortingmachine.SortingMachineSecondary;
 
 /**
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
  * {@code SortingMachine} represented as a {@code Queue} (using an embedding of
  * insertion sort), with implementations of primary methods.
  *
