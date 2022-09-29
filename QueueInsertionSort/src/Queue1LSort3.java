@@ -82,7 +82,6 @@ public final class Queue1LSort3<T> extends Queue1L<T> {
     @Override
     public void sort(Comparator<T> order) {
         assert order != null : "Violation of: order is not null";
-        this.
         // TODO - fill in body
 
     }
