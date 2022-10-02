@@ -133,11 +133,19 @@ public class Set3a<T extends Comparable<T>> extends SetSecondary<T> {
     private static <T> T removeSmallest(BinaryTree<T> t) {
         assert t != null : "Violation of: t is not null";
         assert t.size() > 0 : "Violation of: |t| > 0";
+        T output;
+        BinaryTree<T> empty = new BinaryTree1<>();
+        BinaryTree<T> left = new BinaryTree1<>();
+        BinaryTree<T> right = new BinaryTree1<>();
 
-        // TODO - fill in body
-
-        // This line added just to make the component compilable.
-        return null;
+        T label = t.disassemble(left, right);
+        if (left.equals(null)) {
+            output = label;
+            t.assemble(label, empty, right);
+        } else {
+            output = removeSmallest(left);
+        }
+        return output;
     }
 
     /**
