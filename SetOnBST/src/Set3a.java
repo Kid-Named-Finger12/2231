@@ -96,6 +96,9 @@ public class Set3a<T extends Comparable<T>> extends SetSecondary<T> {
         assert t != null : "Violation of: t is not null";
         assert x != null : "Violation of: x is not null";
 
+        BinaryTree<T> left = new BinaryTree1<>();
+        BinaryTree<T> right = new BinaryTree1<>();
+
         // TODO - fill in body
 
     }
@@ -150,9 +153,19 @@ public class Set3a<T extends Comparable<T>> extends SetSecondary<T> {
         assert t.size() > 0 : "Violation of: x is in labels(t)";
 
         // TODO - fill in body
-
-        // This line added just to make the component compilable.
-        return null;
+        T label;
+        T output = null;
+        BinaryTree<T> left = new BinaryTree1<>();
+        BinaryTree<T> right = new BinaryTree1<>();
+        label = t.disassemble(left, right);
+        if (!label.equals(x)) {
+            removeFromTree(left, x);
+            removeFromTree(right, x);
+            t.assemble(label, left, right);
+        } else {
+            output = label;
+        }
+        return output;
     }
 
     /**
