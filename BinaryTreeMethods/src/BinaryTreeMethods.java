@@ -76,11 +76,14 @@ public final class BinaryTreeMethods {
         T label;
         if (!t.equals(empty)) {
             label = t.disassemble(left, right);
-            t.assemble(label, left, right);
+
             if (label.equals(x)) {
+                t.assemble(label, left, right);
                 return true;
             } else {
-                return (isInTree(left, x) || isInTree(right, x));
+                boolean output = isInTree(left, x) || isInTree(right, x);
+                t.assemble(label, left, right);
+                return output;
             }
         } else {
             return false;
