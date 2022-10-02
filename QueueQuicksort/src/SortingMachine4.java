@@ -86,16 +86,25 @@ public class SortingMachine4<T> extends SortingMachineSecondary<T> {
      *  (not [relation computed by order.compare method](x, partitioner))
      * </pre>
      */
-    private static <T> void partition(Queue<T> q, T partitioner, Queue<T> front,
-            Queue<T> back, Comparator<T> order) {
+    private static <T> void partition(java.util.Queue<T> q, T partitioner, java.util.Queue<T> front,
+            java.util.Queue<T> back, Comparator<T> order) {
         assert q != null : "Violation of: q is not null";
         assert partitioner != null : "Violation of: partitioner is not null";
         assert front != null : "Violation of: front is not null";
         assert back != null : "Violation of: back is not null";
         assert order != null : "Violation of: order is not null";
-
-        // TODO #1 - fill in body
-
+        
+        for (int i = 0; i < q.size(); i++) {
+            T temp = q.remove()
+            int result = order.compare(temp, partitioner);
+            if (result == 0 || result == -1) {
+                front.add(temp);
+            }
+            else {
+                back.add(temp);
+            }
+        }
+        
     }
 
     /**
@@ -112,11 +121,14 @@ public class SortingMachine4<T> extends SortingMachineSecondary<T> {
      * @requires IS_TOTAL_PREORDER([relation computed by order.compare method])
      * @ensures IS_SORTED(q, [relation computed by order.compare method])
      */
-    private static <T> void sort(Queue<T> q, Comparator<T> order) {
+    private static <T> void sort(java.util.Queue<T> q, Comparator<T> order) {
         assert order != null : "Violation of: order is not null";
-
-        // TODO #2 - fill in body
-
+        
+        java.util.Queue<T> front;
+        java.util.Queue<T> back;
+        if (q.length() > 1) {
+            partition(q, front, back, order);
+        }
     }
 
     /**
@@ -193,7 +205,7 @@ public class SortingMachine4<T> extends SortingMachineSecondary<T> {
     public final void add(T x) {
         assert x != null : "Violation of: x is not null";
         assert this.isInInsertionMode() : "Violation of: this.insertion_mode";
-
+        this.entries.add(x);
         // TODO #3 - fill in body
 
     }
@@ -201,7 +213,7 @@ public class SortingMachine4<T> extends SortingMachineSecondary<T> {
     @Override
     public final void changeToExtractionMode() {
         assert this.isInInsertionMode() : "Violation of: this.insertion_mode";
-
+        this.insertionMode = false;
         // TODO #4 - fill in body
 
     }
@@ -212,27 +224,27 @@ public class SortingMachine4<T> extends SortingMachineSecondary<T> {
         assert this.size() > 0 : "Violation of: this.contents /= {}";
 
         // TODO #5 - fill in body
-
+        
         // This line added just to make the component compilable.
-        return null;
+        return this.entries.dequeue();
     }
 
     @Override
     public final boolean isInInsertionMode() {
 
         // TODO #6 - fill in body
-
+        
         // This line added just to make the component compilable.
-        return false;
+        return this.insertionMode;
     }
 
     @Override
     public final Comparator<T> order() {
 
         // TODO #7 - fill in body
-
+        
         // This line added just to make the component compilable.
-        return null;
+        return this.order();
     }
 
     @Override
@@ -241,7 +253,7 @@ public class SortingMachine4<T> extends SortingMachineSecondary<T> {
         // TODO #8 - fill in body
 
         // This line added just to make the component compilable.
-        return 0;
+        return this.size();
     }
 
     @Override
