@@ -152,15 +152,20 @@ public class Set3a<T extends Comparable<T>> extends SetSecondary<T> {
         assert x != null : "Violation of: x is not null";
         assert t.size() > 0 : "Violation of: x is in labels(t)";
 
-        // TODO - fill in body
         T label;
         T output = null;
         BinaryTree<T> left = new BinaryTree1<>();
         BinaryTree<T> right = new BinaryTree1<>();
         label = t.disassemble(left, right);
         if (!label.equals(x)) {
-            removeFromTree(left, x);
-            removeFromTree(right, x);
+            T leftLabel = removeFromTree(left, x);
+            if (leftLabel != null) {
+                output = leftLabel;
+            }
+            T rightLabel = removeFromTree(right, x);
+            if (rightLabel != null) {
+                output = rightLabel;
+            }
             t.assemble(label, left, right);
         } else {
             output = label;
