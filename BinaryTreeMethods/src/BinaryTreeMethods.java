@@ -9,7 +9,7 @@ import components.simplewriter.SimpleWriter1L;
  * Utility class with implementation of {@code BinaryTree} static, generic
  * methods height and isInTree.
  *
- * @author Put your name
+ * @author Put your names
  *
  */
 public final class BinaryTreeMethods {
@@ -86,7 +86,11 @@ public final class BinaryTreeMethods {
                 return output;
             }
         } else {
-            return false;
+            boolean output = false;
+            int xx = 1;
+            xx++;
+            return output;
+
         }
     }
 
