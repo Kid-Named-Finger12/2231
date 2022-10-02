@@ -9,7 +9,7 @@ import components.simplewriter.SimpleWriter1L;
  * Utility class with implementation of {@code BinaryTree} static, generic
  * methods height and isInTree.
  *
- * @author Put your name here
+ * @author Put your name
  *
  */
 public final class BinaryTreeMethods {
@@ -33,17 +33,23 @@ public final class BinaryTreeMethods {
      */
     public static <T> int height(BinaryTree<T> t) {
         assert t != null : "Violation of: t is not null";
-
+        BinaryTree<T> empty = new BinaryTree1<>();
         int height = 0;
-
-        if (t.size() > 0) {
+        if (t.equals(empty)) {
+            return height;
+        } else {
+            height++;
             BinaryTree<T> left = new BinaryTree1<>();
             BinaryTree<T> right = new BinaryTree1<>();
             t.disassemble(left, right);
-
+            if (left.height() > right.height()) {
+                height += left.height();
+            } else {
+                height += right.height();
+            }
         }
 
-        return 0;
+        return height;
     }
 
     /**
