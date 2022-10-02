@@ -159,11 +159,11 @@ public class Set3a<T extends Comparable<T>> extends SetSecondary<T> {
         label = t.disassemble(left, right);
         if (!label.equals(x)) {
             T leftLabel = removeFromTree(left, x);
-            if (leftLabel != null) {
+            if (leftLabel.compareTo(null) != 0) {
                 output = leftLabel;
             }
             T rightLabel = removeFromTree(right, x);
-            if (rightLabel != null) {
+            if (rightLabel.compareTo(null) != 0) {
                 output = rightLabel;
             }
             t.assemble(label, left, right);
