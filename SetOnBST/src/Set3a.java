@@ -135,6 +135,7 @@ public class Set3a<T extends Comparable<T>> extends SetSecondary<T> {
     private static <T> T removeSmallest(BinaryTree<T> t) {
         assert t != null : "Violation of: t is not null";
         assert t.size() > 0 : "Violation of: |t| > 0";
+
         T output;
         BinaryTree<T> empty = new BinaryTree1<>();
         BinaryTree<T> left = new BinaryTree1<>();
