@@ -133,6 +133,13 @@ public abstract class SetTest {
     }
 
     @Test
+    public void containsTestSameString() {
+        Set<String> set = this.createFromArgsTest("abcde");
+        boolean containsOutput = set.contains("abcde");
+        assertEquals(containsOutput, true);
+    }
+
+    @Test
     public void containsTestCounterContain() {
         Set<String> set = this.createFromArgsTest("abcde");
         boolean containsOutput = set.contains("+abcde+");
