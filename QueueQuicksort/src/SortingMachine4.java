@@ -86,13 +86,14 @@ public class SortingMachine4<T> extends SortingMachineSecondary<T> {
      *  (not [relation computed by order.compare method](x, partitioner))
      * </pre>
      */
-    private static <T> void partition(Queue<T> q, T partitioner, Queue<T> front,
-            Queue<T> back, Comparator<T> order) {
+    private static <T> void partition(java.util.Queue<T> q, T partitioner, java.util.Queue<T> front,
+            java.util.Queue<T> back, Comparator<T> order) {
         assert q != null : "Violation of: q is not null";
         assert partitioner != null : "Violation of: partitioner is not null";
         assert front != null : "Violation of: front is not null";
         assert back != null : "Violation of: back is not null";
         assert order != null : "Violation of: order is not null";
+<<<<<<< HEAD
 
         front.clear();
         back.clear();
@@ -107,6 +108,20 @@ public class SortingMachine4<T> extends SortingMachineSecondary<T> {
         }
         q.clear();
 
+=======
+        
+        for (int i = 0; i < q.size(); i++) {
+            T temp = q.remove()
+            int result = order.compare(temp, partitioner);
+            if (result == 0 || result == -1) {
+                front.add(temp);
+            }
+            else {
+                back.add(temp);
+            }
+        }
+        
+>>>>>>> branch 'main' of https://github.com/Kid-Named-Finger12/2231.git
     }
 
     /**
@@ -123,8 +138,9 @@ public class SortingMachine4<T> extends SortingMachineSecondary<T> {
      * @requires IS_TOTAL_PREORDER([relation computed by order.compare method])
      * @ensures IS_SORTED(q, [relation computed by order.compare method])
      */
-    private static <T> void sort(Queue<T> q, Comparator<T> order) {
+    private static <T> void sort(java.util.Queue<T> q, Comparator<T> order) {
         assert order != null : "Violation of: order is not null";
+<<<<<<< HEAD
 
         T partition = q.dequeue();
 
@@ -139,6 +155,14 @@ public class SortingMachine4<T> extends SortingMachineSecondary<T> {
         front.enqueue(partition);
         front.append(back);
 
+=======
+        
+        java.util.Queue<T> front;
+        java.util.Queue<T> back;
+        if (q.length() > 1) {
+            partition(q, front, back, order);
+        }
+>>>>>>> branch 'main' of https://github.com/Kid-Named-Finger12/2231.git
     }
 
     /**
@@ -215,16 +239,26 @@ public class SortingMachine4<T> extends SortingMachineSecondary<T> {
     public final void add(T x) {
         assert x != null : "Violation of: x is not null";
         assert this.isInInsertionMode() : "Violation of: this.insertion_mode";
+<<<<<<< HEAD
 
         this.entries.enqueue(x);
+=======
+        this.entries.add(x);
+        // TODO #3 - fill in body
+>>>>>>> branch 'main' of https://github.com/Kid-Named-Finger12/2231.git
 
     }
 
     @Override
     public final void changeToExtractionMode() {
         assert this.isInInsertionMode() : "Violation of: this.insertion_mode";
+<<<<<<< HEAD
 
         this.insertionMode = !this.insertionMode;
+=======
+        this.insertionMode = false;
+        // TODO #4 - fill in body
+>>>>>>> branch 'main' of https://github.com/Kid-Named-Finger12/2231.git
 
     }
 
@@ -234,27 +268,53 @@ public class SortingMachine4<T> extends SortingMachineSecondary<T> {
                 .isInInsertionMode() : "Violation of: not this.insertion_mode";
         assert this.size() > 0 : "Violation of: this.contents /= {}";
 
+<<<<<<< HEAD
         this.entries.sort(this.machineOrder);
 
+=======
+        // TODO #5 - fill in body
+        
+        // This line added just to make the component compilable.
+>>>>>>> branch 'main' of https://github.com/Kid-Named-Finger12/2231.git
         return this.entries.dequeue();
     }
 
     @Override
     public final boolean isInInsertionMode() {
 
+<<<<<<< HEAD
+=======
+        // TODO #6 - fill in body
+        
+        // This line added just to make the component compilable.
+>>>>>>> branch 'main' of https://github.com/Kid-Named-Finger12/2231.git
         return this.insertionMode;
     }
 
     @Override
     public final Comparator<T> order() {
 
+<<<<<<< HEAD
         return this.machineOrder;
+=======
+        // TODO #7 - fill in body
+        
+        // This line added just to make the component compilable.
+        return this.order();
+>>>>>>> branch 'main' of https://github.com/Kid-Named-Finger12/2231.git
     }
 
     @Override
     public final int size() {
 
+<<<<<<< HEAD
         return this.entries.length();
+=======
+        // TODO #8 - fill in body
+
+        // This line added just to make the component compilable.
+        return this.size();
+>>>>>>> branch 'main' of https://github.com/Kid-Named-Finger12/2231.git
     }
 
     @Override

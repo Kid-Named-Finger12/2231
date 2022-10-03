@@ -22,7 +22,7 @@ import components.set.SetSecondary;
  * @convention IS_BST($this.tree)
  * @correspondence this = labels($this.tree)
  *
- * @author Put your name here
+ * @author Jonathan Strunck, Benjamin Huang
  *
  */
 public class Set3a<T extends Comparable<T>> extends SetSecondary<T> {
@@ -96,8 +96,25 @@ public class Set3a<T extends Comparable<T>> extends SetSecondary<T> {
         assert t != null : "Violation of: t is not null";
         assert x != null : "Violation of: x is not null";
 
-        // TODO - fill in body
+        BinaryTree<T> empty = new BinaryTree1<>();
+        BinaryTree<T> left = new BinaryTree1<>();
+        BinaryTree<T> right = new BinaryTree1<>();
 
+        T label = t.disassemble(left, right);
+        if (x.compareTo(label) < 0) {
+            if (left.equals(empty)) {
+                left.assemble(x, empty, empty);
+            } else {
+                insertInTree(left, x);
+            }
+        } else {
+            if (right.equals(empty)) {
+                right.assemble(x, empty, empty);
+            } else {
+                insertInTree(right, x);
+            }
+        }
+        t.assemble(label, left, right);
     }
 
     /**
@@ -118,11 +135,19 @@ public class Set3a<T extends Comparable<T>> extends SetSecondary<T> {
     private static <T> T removeSmallest(BinaryTree<T> t) {
         assert t != null : "Violation of: t is not null";
         assert t.size() > 0 : "Violation of: |t| > 0";
+        T output;
+        BinaryTree<T> empty = new BinaryTree1<>();
+        BinaryTree<T> left = new BinaryTree1<>();
+        BinaryTree<T> right = new BinaryTree1<>();
 
-        // TODO - fill in body
-
-        // This line added just to make the component compilable.
-        return null;
+        T label = t.disassemble(left, right);
+        if (left.equals(null)) {
+            output = label;
+            t.assemble(label, empty, right);
+        } else {
+            output = removeSmallest(left);
+        }
+        return output;
     }
 
     /**
@@ -149,10 +174,27 @@ public class Set3a<T extends Comparable<T>> extends SetSecondary<T> {
         assert x != null : "Violation of: x is not null";
         assert t.size() > 0 : "Violation of: x is in labels(t)";
 
-        // TODO - fill in body
+        T label;
+        T output = null;
+        BinaryTree<T> left = new BinaryTree1<>();
+        BinaryTree<T> right = new BinaryTree1<>();
+        label = t.disassemble(left, right);
 
-        // This line added just to make the component compilable.
-        return null;
+        if (!label.equals(x)) {
+            T leftLabel = removeFromTree(left, x);
+            if (leftLabel.compareTo(null) != 0) {
+                output = leftLabel;
+            }
+            T rightLabel = removeFromTree(right, x);
+            if (rightLabel.compareTo(null) != 0) {
+                output = rightLabel;
+            }
+        } else {
+            output = label;
+        }
+
+        t.assemble(label, left, right);
+        return output;
     }
 
     /**
@@ -218,7 +260,7 @@ public class Set3a<T extends Comparable<T>> extends SetSecondary<T> {
         assert x != null : "Violation of: x is not null";
         assert !this.contains(x) : "Violation of: x is not in this";
 
-        // TODO - fill in body
+        insertInTree(this.tree, x);
 
     }
 
@@ -227,39 +269,27 @@ public class Set3a<T extends Comparable<T>> extends SetSecondary<T> {
         assert x != null : "Violation of: x is not null";
         assert this.contains(x) : "Violation of: x is in this";
 
-        // TODO - fill in body
-
-        // This line added just to make the component compilable.
-        return null;
+        return removeFromTree(this.tree, x);
     }
 
     @Override
     public final T removeAny() {
         assert this.size() > 0 : "Violation of: this /= empty_set";
 
-        // TODO - fill in body
-
-        // This line added just to make the component compilable.
-        return null;
+        return removeSmallest(this.tree);
     }
 
     @Override
     public final boolean contains(T x) {
         assert x != null : "Violation of: x is not null";
 
-        // TODO - fill in body
-
-        // This line added just to make the component compilable.
-        return false;
+        return isInTree(this.tree, x);
     }
 
     @Override
     public final int size() {
 
-        // TODO - fill in body
-
-        // This line added just to make the component compilable.
-        return 0;
+        return this.tree.size();
     }
 
     @Override

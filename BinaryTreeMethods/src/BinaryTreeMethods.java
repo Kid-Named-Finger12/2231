@@ -9,7 +9,7 @@ import components.simplewriter.SimpleWriter1L;
  * Utility class with implementation of {@code BinaryTree} static, generic
  * methods height and isInTree.
  *
- * @author Put your name here
+ * @author Put your names
  *
  */
 public final class BinaryTreeMethods {
@@ -33,17 +33,24 @@ public final class BinaryTreeMethods {
      */
     public static <T> int height(BinaryTree<T> t) {
         assert t != null : "Violation of: t is not null";
-
+        BinaryTree<T> empty = new BinaryTree1<>();
+        BinaryTree<T> left = new BinaryTree1<>();
+        BinaryTree<T> right = new BinaryTree1<>();
+        T label;
         int height = 0;
-
-        if (t.size() > 0) {
-            BinaryTree<T> left = new BinaryTree1<>();
-            BinaryTree<T> right = new BinaryTree1<>();
-            t.disassemble(left, right);
-
+        if (t.equals(empty)) {
+            return height;
+        } else {
+            height++;
+            label = t.disassemble(left, right);
+            if (left.height() > right.height()) {
+                height += left.height();
+            } else {
+                height += right.height();
+            }
         }
-
-        return 0;
+        t.assemble(label, left, right);
+        return height;
     }
 
     /**
@@ -63,11 +70,28 @@ public final class BinaryTreeMethods {
     public static <T> boolean isInTree(BinaryTree<T> t, T x) {
         assert t != null : "Violation of: t is not null";
         assert x != null : "Violation of: x is not null";
+        BinaryTree<T> empty = new BinaryTree1<>();
+        BinaryTree<T> left = new BinaryTree1<>();
+        BinaryTree<T> right = new BinaryTree1<>();
+        T label;
+        if (!t.equals(empty)) {
+            label = t.disassemble(left, right);
 
-        // TODO - fill in body
+            if (label.equals(x)) {
+                t.assemble(label, left, right);
+                return true;
+            } else {
+                boolean output = isInTree(left, x) || isInTree(right, x);
+                t.assemble(label, left, right);
+                return output;
+            }
+        } else {
+            boolean output = false;
+            int xx = 1;
+            xx++;
+            return output;
 
-        // This line added just to make the component compilable.
-        return false;
+        }
     }
 
     /**
