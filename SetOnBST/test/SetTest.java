@@ -102,10 +102,20 @@ public abstract class SetTest {
     }
 
     @Test
-    public void removeTest() {
+    public void removeTestPartial() {
+        Set<String> set = this.createFromArgsTest("abcde");
+        set.remove("bcd");
+        Set<String> setExpected = this.createFromArgsRef("abcde");
+        setExpected.remove("bcd");
+        assertEquals(set, setExpected);
+    }
+
+    @Test
+    public void removeTestWhole() {
         Set<String> set = this.createFromArgsTest("abcde");
         set.remove("abcde");
-        Set<String> setExpected = this.constructorRef();
+        Set<String> setExpected = this.createFromArgsRef("abcde");
+        setExpected.remove("abcde");
         assertEquals(set, setExpected);
     }
 
