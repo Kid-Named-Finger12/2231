@@ -16,6 +16,4 @@ public class Set3aTest extends SetTest {
         return new Set1L<String>();
     }
 
-    int i;
-
 }
