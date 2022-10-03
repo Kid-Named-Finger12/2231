@@ -1,3 +1,7 @@
+import static org.junit.Assert.assertEquals;
+
+import org.junit.Test;
+
 import components.set.Set;
 
 /**
@@ -7,7 +11,6 @@ import components.set.Set;
  *
  */
 public abstract class SetTest {
-
     /**
      * Invokes the appropriate {@code Set} constructor for the implementation
      * under test and returns the result.
@@ -66,6 +69,52 @@ public abstract class SetTest {
         return set;
     }
 
+    @Test
+    public void construtorTest() {
+        Set<String> set = this.constructorTest();
+        Set<String> setExpected = this.constructorRef();
+        assertEquals(set, setExpected);
+    }
+
+    @Test
+    public void addTest() {
+        Set<String> set = this.constructorTest();
+        set.add("abcde");
+        Set<String> setExpected = this.createFromArgsRef("abcde");
+        assertEquals(set, setExpected);
+    }
+
+    @Test
+    public void removeTest() {
+        Set<String> set = this.createFromArgsTest("abcde");
+        set.remove("abcde");
+        Set<String> setExpected = this.constructorRef();
+        assertEquals(set, setExpected);
+    }
+
+    @Test
+    public void removeAnyTest() {
+        Set<String> set = this.createFromArgsTest("abcde");
+        set.removeAny();
+        Set<String> setExpected = this.createFromArgsRef("abcde");
+        setExpected.removeAny();
+        assertEquals(set, setExpected);
+    }
+
+    @Test
+    public void containsTest() {
+        Set<String> set = this.createFromArgsTest("abcde");
+        boolean containsOutput = set.contains("abc");
+        assertEquals(containsOutput, true);
+    }
+
+    @Test
+    public void sizeTest() {
+        Set<String> set = this.createFromArgsTest("abcde");
+        int sizeExpected = "abcde".length();
+        assertEquals(set.size(), sizeExpected);
+    }
     // TODO - add test cases for constructor, add, remove, removeAny, contains, and size
 
 }
+
