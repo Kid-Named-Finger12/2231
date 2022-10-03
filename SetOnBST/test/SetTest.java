@@ -7,7 +7,7 @@ import components.set.Set;
 /**
  * JUnit test fixture for {@code Set<String>}'s constructor and kernel methods.
  *
- * @author Put your name here
+ * @author Jonathan Strunck, Benjamin Huang
  *
  */
 public abstract class SetTest {
@@ -70,17 +70,34 @@ public abstract class SetTest {
     }
 
     @Test
-    public void construtorTest() {
+    public void constructorTestEmpty() {
         Set<String> set = this.constructorTest();
         Set<String> setExpected = this.constructorRef();
         assertEquals(set, setExpected);
     }
 
     @Test
-    public void addTest() {
+    public void constructorTestString() {
+        Set<String> set = this.createFromArgsTest("abcde");
+        Set<String> setExpected = this.createFromArgsRef("abcde");
+        assertEquals(set, setExpected);
+    }
+
+    @Test
+    public void addTestEmpty() {
         Set<String> set = this.constructorTest();
         set.add("abcde");
+        Set<String> setExpected = this.constructorRef();
+        setExpected.add("abcde");
+        assertEquals(set, setExpected);
+    }
+
+    @Test
+    public void addTestExistingString() {
+        Set<String> set = this.createFromArgsTest("abcde");
+        set.add("efg");
         Set<String> setExpected = this.createFromArgsRef("abcde");
+        setExpected.add("efg");
         assertEquals(set, setExpected);
     }
 
@@ -102,19 +119,40 @@ public abstract class SetTest {
     }
 
     @Test
-    public void containsTest() {
+    public void containsTestFalse() {
+        Set<String> set = this.createFromArgsTest("abcde");
+        boolean containsOutput = set.contains("edcba");
+        assertEquals(containsOutput, false);
+    }
+
+    @Test
+    public void containsTestTrue() {
         Set<String> set = this.createFromArgsTest("abcde");
         boolean containsOutput = set.contains("abc");
         assertEquals(containsOutput, true);
     }
 
     @Test
-    public void sizeTest() {
+    public void containsTestCounterContain() {
+        Set<String> set = this.createFromArgsTest("abcde");
+        boolean containsOutput = set.contains("+abcde+");
+        assertEquals(containsOutput, false);
+    }
+
+    @Test
+    public void sizeTestEmpty() {
+        Set<String> set = this.constructorTest();
+        int sizeExpected = 0;
+        assertEquals(set.size(), sizeExpected);
+    }
+
+    @Test
+    public void sizeTestNotEmpty() {
         Set<String> set = this.createFromArgsTest("abcde");
         int sizeExpected = "abcde".length();
         assertEquals(set.size(), sizeExpected);
     }
+
     // TODO - add test cases for constructor, add, remove, removeAny, contains, and size
 
 }
-
