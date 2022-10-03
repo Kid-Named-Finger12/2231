@@ -94,7 +94,18 @@ public class SortingMachine4<T> extends SortingMachineSecondary<T> {
         assert back != null : "Violation of: back is not null";
         assert order != null : "Violation of: order is not null";
 
-        // TODO #1 - fill in body
+        front.clear();
+        back.clear();
+
+        while (q.length() > 0) {
+            T x = q.dequeue();
+            if (order.compare(x, partitioner) < 0) {
+                front.enqueue(x);
+            } else {
+                back.enqueue(x);
+            }
+        }
+        q.clear();
 
     }
 
@@ -115,7 +126,18 @@ public class SortingMachine4<T> extends SortingMachineSecondary<T> {
     private static <T> void sort(Queue<T> q, Comparator<T> order) {
         assert order != null : "Violation of: order is not null";
 
-        // TODO #2 - fill in body
+        T partition = q.dequeue();
+
+        Queue<T> front = new Queue1L<>();
+        Queue<T> back = new Queue1L<>();
+
+        partition(q, partition, front, back, order);
+
+        front.sort(order);
+        back.sort(order);
+
+        front.enqueue(partition);
+        front.append(back);
 
     }
 
@@ -194,7 +216,7 @@ public class SortingMachine4<T> extends SortingMachineSecondary<T> {
         assert x != null : "Violation of: x is not null";
         assert this.isInInsertionMode() : "Violation of: this.insertion_mode";
 
-        // TODO #3 - fill in body
+        this.entries.enqueue(x);
 
     }
 
@@ -202,46 +224,37 @@ public class SortingMachine4<T> extends SortingMachineSecondary<T> {
     public final void changeToExtractionMode() {
         assert this.isInInsertionMode() : "Violation of: this.insertion_mode";
 
-        // TODO #4 - fill in body
+        this.insertionMode = !this.insertionMode;
 
     }
 
     @Override
     public final T removeFirst() {
-        assert !this.isInInsertionMode() : "Violation of: not this.insertion_mode";
+        assert !this
+                .isInInsertionMode() : "Violation of: not this.insertion_mode";
         assert this.size() > 0 : "Violation of: this.contents /= {}";
 
-        // TODO #5 - fill in body
+        this.entries.sort(this.machineOrder);
 
-        // This line added just to make the component compilable.
-        return null;
+        return this.entries.dequeue();
     }
 
     @Override
     public final boolean isInInsertionMode() {
 
-        // TODO #6 - fill in body
-
-        // This line added just to make the component compilable.
-        return false;
+        return this.insertionMode;
     }
 
     @Override
     public final Comparator<T> order() {
 
-        // TODO #7 - fill in body
-
-        // This line added just to make the component compilable.
-        return null;
+        return this.machineOrder;
     }
 
     @Override
     public final int size() {
 
-        // TODO #8 - fill in body
-
-        // This line added just to make the component compilable.
-        return 0;
+        return this.entries.length();
     }
 
     @Override
