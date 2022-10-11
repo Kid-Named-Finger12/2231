@@ -151,10 +151,17 @@ public abstract class SortingMachineTest {
     }
 
     @Test
-    public final void testIsInInsertionMode() {
+    public final void testIsInInsertionModeT() {
         SortingMachine<String> m = this.createFromArgsTest(ORDER, true,
                 "abcde");
         assertEquals(true, m.isInInsertionMode());
+    }
+
+    @Test
+    public final void testIsInInsertionModeF() {
+        SortingMachine<String> m = this.createFromArgsTest(ORDER, false,
+                "abcde");
+        assertEquals(false, m.isInInsertionMode());
     }
 
     @Test
@@ -168,13 +175,24 @@ public abstract class SortingMachineTest {
 
     @Test
     public final void testRemoveFirstToEmpty() {
-        SortingMachine<String> m = this.createFromArgsTest(ORDER, true,
+        SortingMachine<String> m = this.createFromArgsTest(ORDER, false,
                 "abcde");
-        m.changeToExtractionMode();
         String removedItem = m.removeFirst();
         SortingMachine<String> mExpected = this.createFromArgsRef(ORDER, false);
         assertEquals(mExpected, m);
         assertEquals("abcde", removedItem);
+    }
+
+    @Test
+    public final void testRemoveFirst() {
+        SortingMachine<String> m = this.createFromArgsTest(ORDER, false, "a",
+                "b", "c", "d", "e");
+        SortingMachine<String> mExpected = this.createFromArgsRef(ORDER, false,
+                "b", "c", "d", "e");
+        String removedItem = m.removeFirst();
+        assertEquals(mExpected, m);
+        assertEquals("a", removedItem);
+
     }
 
     @Test
@@ -185,7 +203,7 @@ public abstract class SortingMachineTest {
 
     @Test
     public final void testOrderNotEmpty() {
-        SortingMachine<String> m = this.createFromArgsTest(ORDER, true, "a",
+        SortingMachine<String> m = this.createFromArgsTest(ORDER, false, "a",
                 "b", "c");
         assertEquals(ORDER, m.order());
     }
