@@ -170,9 +170,9 @@ public abstract class SortingMachineTest {
     public final void testRemoveFirstToEmpty() {
         SortingMachine<String> m = this.createFromArgsTest(ORDER, true,
                 "abcde");
-
+        m.changeToExtractionMode();
         String removedItem = m.removeFirst();
-        SortingMachine<String> mExpected = this.createFromArgsRef(ORDER, true);
+        SortingMachine<String> mExpected = this.createFromArgsRef(ORDER, false);
         assertEquals(mExpected, m);
         assertEquals("abcde", removedItem);
     }
